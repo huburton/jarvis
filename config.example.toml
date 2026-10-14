@@ -1,0 +1,38 @@
+# Copy to ~/.config/jarvis/config.toml (or point JARVIS_CONFIG at it). Every key is optional;
+# defaults live in jarvis/config.py.
+
+[llm]
+url = "http://127.0.0.1:8080/v1"
+model = "local"
+# api_key = "..."            # or: key_file = "~/.config/jarvis/api-key"  or env JARVIS_LLM_KEY
+
+# Optional fallback endpoint, used when the primary llama.cpp router is unreachable or has one of
+# `busy_models` loaded.
+# fallback_url = "http://other-host:8095/v1"
+# fallback_model = "small-model"
+# busy_models = ["big-code-model"]
+
+[stt]
+model = "large-v3-turbo"
+device = "cpu"
+
+[tts]
+voice = "~/.local/share/piper/fr_FR-tom-medium.onnx"
+
+[weather]
+city = "Paris"
+lat = 48.85
+lon = 2.35
+
+[notes]
+dir = "~/Documents/jarvis-notes"
+
+[desktop]
+lock_command = ["loginctl", "lock-session"]
+workspace_command = ["hyprctl", "dispatch", "workspace"]
+
+# Optional plugin, disabled by default.
+[plugins.remote_agent]
+enabled = false
+url = "http://127.0.0.1:9000"
+# key_file = "~/.config/jarvis/remote-key"    # or env JARVIS_REMOTE_KEY

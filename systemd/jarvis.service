@@ -1,0 +1,17 @@
+# User unit: copy to ~/.config/systemd/user/, then `systemctl --user enable --now jarvis`.
+# Adjust ExecStart to the virtualenv where you installed `.[voice]`.
+[Unit]
+Description=Jarvis - local voice assistant
+After=pipewire.service
+
+[Service]
+Environment=PYTHONUNBUFFERED=1
+# After the models are downloaded once, this keeps startup offline:
+# Environment=HF_HUB_OFFLINE=1
+ExecStart=%h/.venvs/jarvis/bin/python -m jarvis
+Restart=on-failure
+RestartSec=5
+Nice=5
+
+[Install]
+WantedBy=graphical-session.target
