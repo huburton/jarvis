@@ -1,0 +1,42 @@
+Jarvis text demo (offline: fake LLM router, stub tools). Nothing is executed.
+Try: "quelle heure est-il ?", "quel temps demain ?", "mets le volume à 30",
+     "note que le dentiste est jeudi", "verrouille la session", "éteins le PC". Type "quit" to leave.
+Notes and tasks are written to /tmp/jarvis-demo-xxxx
+you> quel temps demain à Lyon ?
+  [tool] get_weather {'day': 'tomorrow', 'city': 'Lyon'}  (level 1, direct)
+  [demo] weather is mocked
+Jarvis: Lyon — Demain : pluie faible, 8 à 13°C, risque de pluie 70%.
+you> monte le volume
+Jarvis: À combien tu veux le volume ?
+you> mets le volume à 30
+  [tool] set_volume {'percent': 30}  (level 1, direct)
+  [demo] would run: wpctl set-volume @DEFAULT_AUDIO_SINK@ 30%
+Jarvis: Volume à 30 %.
+you> rappelle-moi dans 10 minutes de sortir le pain
+  [tool] set_timer {'minutes': 10.0, 'label': 'sortir le pain'}  (level 1, direct)
+  [demo] would schedule a notification + spoken reminder in 10 min (sortir le pain)
+Jarvis: Minuteur réglé pour 07:21.
+you> ajoute la tâche acheter du café
+Jarvis: Je vais ajouter la tâche « acheter du café ». Tu confirmes ?
+you> oui
+  [confirm] heard 'oui' -> yes; level 2 -> accepted
+  [tool] add_task {'title': 'acheter du café'}  (level 2, needs confirmation)
+Jarvis: Tâche ajoutée.
+you> éteins le PC
+Jarvis: Je vais éteindre le PC. Confirme en disant oui, je confirme.
+you> oui
+  [confirm] heard 'oui' -> yes; level 3 -> refused
+Jarvis: D'accord, j'annule.
+you> éteins le PC
+Jarvis: Je vais éteindre le PC. Confirme en disant oui, je confirme.
+you> non, annule
+  [confirm] heard 'non, annule' -> no; level 3 -> refused
+Jarvis: D'accord, j'annule.
+you> éteins le PC
+Jarvis: Je vais éteindre le PC. Confirme en disant oui, je confirme.
+you> oui, je confirme
+  [confirm] heard 'oui, je confirme' -> yes; level 3 -> accepted
+  [tool] power {'action': 'shutdown'}  (level 3, needs strict confirmation)
+  [demo] would run: systemctl poweroff (after 3 s)
+Jarvis: Extinction dans 3 secondes.
+you> quit
