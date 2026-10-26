@@ -1,5 +1,7 @@
 # Jarvis
 
+*[Version française](README.fr.md)*
+
 A 100 % local, French-speaking voice assistant for a Linux desktop: wake word, speech-to-text, a local LLM that
 picks tools through a JSON grammar, and a three-level permission system for anything with side effects.
 
